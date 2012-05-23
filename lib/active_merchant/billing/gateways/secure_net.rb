@@ -46,7 +46,7 @@ module ActiveMerchant #:nodoc:
 
 #      TEST_URL = 'https://certify.securenet.com/api/Gateway.svc'
       TEST_URL = 'https://certify.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
-      LIVE_URL = 'https://gateway.securenet.com/api/Gateway.svc'
+      LIVE_URL = 'https://gateway.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
 
       APPROVED, DECLINED, ERROR = 1, 2, 3
 
@@ -85,7 +85,7 @@ module ActiveMerchant #:nodoc:
       private
       def commit(request, money)
         xml = build_request(request, money)
-        data = ssl_post(TEST_URL, xml, "Content-Type" => "text/xml")
+        data = ssl_post(LIVE_URL, xml, "Content-Type" => "text/xml")
         response = parse(data)
 
         test_mode = test?
