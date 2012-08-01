@@ -44,8 +44,9 @@ module ActiveMerchant #:nodoc:
       self.display_name = 'SecureNet'
 #      self.wiredump_device = STDOUT
 
-      TEST_URL = 'https://certify.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
-      LIVE_URL = 'https://gateway.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
+#      self.test_url = 'https://certify.securenet.com/api/Gateway.svc'
+      self.test_url = 'https://certify.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
+      self.live_url = 'https://gateway.securenet.com/API/gateway.svc/webHttp/ProcessTransaction'
 
       APPROVED, DECLINED, ERROR = 1, 2, 3
 
@@ -83,7 +84,7 @@ module ActiveMerchant #:nodoc:
 
       private
       def commit(request, money)
-        post_url = test? ? TEST_URL : LIVE_URL
+        post_url = test? ? self.test_url : self.live_url
         xml = build_request(request, money)
         data = ssl_post(post_url, xml, "Content-Type" => "text/xml")
         response = parse(data)
